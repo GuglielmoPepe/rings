@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Classes;
+namespace Rings\Classes;
 
-class Decorator implements \Interfaces\Decorator
+class Decorator implements \Rings\Interfaces\Decorator
 {
-    public function execute(\Interfaces\Data $data, \Interfaces\Next $next) : \Interfaces\Data
+    public function execute(\Rings\Interfaces\Data $data, \Rings\Interfaces\Next $next) : \Rings\Interfaces\Data
     {
         return $next->execute($data);
     }

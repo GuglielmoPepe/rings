@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Classes;
+namespace Rings\Classes;
 
-class Command implements \Interfaces\Command
+class Command implements \Rings\Interfaces\Command
 {
     private $callback;
 
@@ -13,7 +13,7 @@ class Command implements \Interfaces\Command
         $this->callback = $callback;
     }
 
-    public function execute(\Interfaces\Data $data) : \Interfaces\Data
+    public function execute(\Rings\Interfaces\Data $data) : \Rings\Interfaces\Data
     {
         return call_user_func($this->callback, $data);
     }

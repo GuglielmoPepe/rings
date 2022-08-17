@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Classes;
+namespace Rings\Classes;
 
-class Data implements \Interfaces\Data
+class Data implements \Rings\Interfaces\Data
 {
     public function __construct(array $records = [])
     {

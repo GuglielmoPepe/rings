@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Interfaces;
+namespace Rings\Interfaces;
 
 interface Pipeline extends Command
 {

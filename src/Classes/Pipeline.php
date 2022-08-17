@@ -2,27 +2,27 @@
 
 declare(strict_types = 1);
 
-namespace Classes;
+namespace Rings\Classes;
 
-final class Pipeline implements \Interfaces\Pipeline
+final class Pipeline implements \Rings\Interfaces\Pipeline
 {
     private $command;
     private $queue;
     
-    public function __construct(\Interfaces\Command $command, \SplQueue $queue)
+    public function __construct(\Rings\Interfaces\Command $command, \SplQueue $queue)
     {
         $this->command = $command;
         $this->queue = $queue;
     }
     
-    public function addDecorator(\Interfaces\Decorator $decorator) : void 
+    public function addDecorator(\Rings\Interfaces\Decorator $decorator) : void 
     {
         $this->queue->enqueue($decorator);
 
         return;
     }
     
-    public function execute(\Interfaces\Data $data) : \Interfaces\Data
+    public function execute(\Rings\Interfaces\Data $data) : \Rings\Interfaces\Data
     {
         $next = new Next($this->command, $this->queue);
         
