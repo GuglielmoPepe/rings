@@ -17,7 +17,7 @@ final class Next implements \Rings\Interfaces\Next
     {
         if ($this->queue->isEmpty())
         {
-            return $this->command->execute($data);
+            return $data;
         }
         
         $decorator = $this->queue->dequeue();
