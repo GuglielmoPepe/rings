@@ -1,5 +1,5 @@
 # Rings
-Rings allows you to create and dispatch middleware pipelines.
+Rings allows you to create and dispatch sequential, decorable, filterable and/or composable pipelines.
 
 ## Table of Contents 
 * [Benefits](#benefits)
@@ -18,8 +18,15 @@ Rings allows you to create and dispatch middleware pipelines.
 
 
 ## Benefits
+* Be highly composable.
+* Be immutable.
 
 ## Features
+Rings are implemented as immutable chains. When you enqueue a new decorator, a new stage will be created with the added decorator. 
+
+You can enqueue decorators that add functionality to the pipeline. You can enqueue decorators that filter the operations to be done on data. You can enqueue decorators which add sub pipelines.
+
+This makes pipelines easy to reuse, highly composable, and minimizes side-effects.
 
 ## Prerequisites
 * PHP 7.2.0
@@ -34,15 +41,100 @@ $ composer require guglielmopepe/rings
 ```
 
 ## Usage
-_To do_
+``` php
+// create pipeline
+$pipeline = new \Rings\Classes\Pipeline(new \SplQueue());
+
+// add decorators: 
+$pipeline->addDecorator(new \Rings\Classes\Decorator(function (\Rings\Interfaces\Data $data) {echo 'Stage 1 <br />';return $data;}));
+$pipeline->addDecorator(new \Rings\Classes\Decorator(function (\Rings\Interfaces\Data $data) {echo 'Stage 2 <br />';return $data;}));
+$pipeline->addDecorator(new \Rings\Classes\Decorator(function (\Rings\Interfaces\Data $data) {echo 'Stage 3 <br />';return $data;}));
+
+// execute command
+$data = $pipeline->execute(new \Rings\Classes\Data([]));
+```
 
 ## Documentation
 
-### Use Rings like pipeline
-_To do_
+### Create pipeline like macro
+``` php
+// create pipeline
+$pipeline = new \Rings\Classes\Pipeline(new \SplQueue());
 
-### Use Rings like middleware
-_To do_
+// add decorators: 
+$pipeline->addDecorator(new \Rings\Classes\Decorator(
+    function (\Rings\Interfaces\Data $data)
+    {
+        return new \Rings\Classes\Data(['foo' => '***' . $data['foo'] . '***']);
+    })
+);
+
+$pipeline->addDecorator(new \Rings\Classes\Decorator(
+    function (\Rings\Interfaces\Data $data)
+    {
+        return new \Rings\Classes\Data(['foo' => '___' . $data['foo'] . '___']);
+    })
+);
+
+// execute command
+$data = $pipeline->execute(new \Rings\Classes\Data(['foo' => 'bar']));
+
+
+// print ___***bar***___
+echo $data['foo'];
+```
+
+### Create pipeline with filter
+``` php
+// create pipeline
+$pipeline = new \Rings\Classes\Pipeline(new \SplQueue());
+
+// add decorators: 
+$pipeline->addDecorator(new \Rings\Classes\Decorator(
+    function (\Rings\Interfaces\Data $data)
+    {
+        if (strpos($data['foo'], '***') !== FALSE)
+        {
+            return $data;
+        }
+
+        return new \Rings\Classes\Data(['foo' => '***' . $data['foo'] . '***']);
+    })
+);
+
+$pipeline->addDecorator(new \Rings\Classes\Decorator(
+    function (\Rings\Interfaces\Data $data)
+    {
+        if (strpos($data['foo'], '___') !== FALSE)
+        {
+            return $data;
+        }
+
+        return new \Rings\Classes\Data(['foo' => '___' . $data['foo'] . '___']);
+    })
+);
+
+// execute command
+$data = $pipeline->execute(new \Rings\Classes\Data(['foo' => 'bar']));
+
+
+// print ___***bar***___
+echo $data['foo'];
+
+// execute command
+$data = $pipeline->execute(new \Rings\Classes\Data(['foo' => '***bar***']));
+
+
+// print ***bar***
+echo $data['foo'];
+
+// execute command
+$data = $pipeline->execute(new \Rings\Classes\Data(['foo' => '___bar___']));
+
+
+// print ***bar***
+echo $data['foo'];
+```
 
 ## Support
 If you have a request, please create a GitHub [issue](https://github.com/GuglielmoPepe/rings/issues).
@@ -54,7 +146,7 @@ _To do_
 
 
 ## Contributing
-If you want to say **thank you** and/or support the active development of `skeleton`:
+If you want to say **thank you** and/or support the active development of `Rings`:
 
 1. Add a [GitHub Star](https://github.com/GuglielmoPepe/rings/stargazers) to the project.
 2. Share the project on social media.
