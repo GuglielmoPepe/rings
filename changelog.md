@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - Change readme file: write incomplete sections
 - Change composer.json file: modify description and keywords sections
-- Change Next class: remove construct param "Command"
+- Change Next class: remove construct param $command
 - Change Next class: when queue is empty, return Data
-- Change Pipeline class: remove construct param "Command"
+- Change Pipeline class: remove construct param $command
 - Remove command class
 
 

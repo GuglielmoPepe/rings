@@ -6,12 +6,10 @@ namespace Rings\Classes;
 
 final class Next implements \Rings\Interfaces\Next
 {
-    private $command;
     private $queue;
 
-    public function __construct(\Rings\Interfaces\Command $command, \SplQueue $queue)
+    public function __construct(\SplQueue $queue)
     {
-        $this->command = $command;
         $this->queue = $queue;
     }
     
@@ -22,9 +20,9 @@ final class Next implements \Rings\Interfaces\Next
             return $this->command->execute($data);
         }
         
-        $middleware = $this->queue->dequeue();
+        $decorator = $this->queue->dequeue();
             
-        return $middleware->execute($data, new Next($this->command, $this->queue));
+        return $decorator->execute($data, new Next($this->queue));
     }
 }
 

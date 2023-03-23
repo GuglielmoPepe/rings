@@ -22,7 +22,7 @@ final class Pipeline implements \Rings\Interfaces\Pipeline
     
     public function execute(\Rings\Interfaces\Data $data) : \Rings\Interfaces\Data
     {
-        $next = new Next($this->command, $this->queue);
+        $next = new Next($this->queue);
         
         return $next->execute($data);
     }
