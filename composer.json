@@ -15,10 +15,10 @@
         "process-timeout": 0,
         "sort-packages": true
     },
-    "description": "A skeleton for rapid development",
+    "description": "A package for pipeline, macro and middleware",
     "name": "guglielmopepe/rings",
     "homepage": "https://github.com/GuglielmoPepe/rings",
-    "keywords": ["pipeline","middleware"],
+    "keywords": ["pipeline","macro","middleware"],
     "license": "MIT",
     "require": {
         "php": "^7.2.0 || ^8.0.0"
