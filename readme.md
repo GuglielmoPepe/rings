@@ -37,6 +37,11 @@ $ composer require guglielmopepe/rings
 _To do_
 
 ## Documentation
+
+### Use Rings like pipeline
+_To do_
+
+### Use Rings like middleware
 _To do_
 
 ## Support
