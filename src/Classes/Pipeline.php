@@ -6,12 +6,10 @@ namespace Rings\Classes;
 
 final class Pipeline implements \Rings\Interfaces\Pipeline
 {
-    private $command;
     private $queue;
     
-    public function __construct(\Rings\Interfaces\Command $command, \SplQueue $queue)
+    public function __construct(\SplQueue $queue)
     {
-        $this->command = $command;
         $this->queue = $queue;
     }
     
