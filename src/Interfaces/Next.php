@@ -6,6 +6,6 @@ namespace Rings\Interfaces;
 
 interface Next extends Command
 {
-    public function __construct(Command $command, \SplQueue $queue);
+    public function __construct(\SplQueue $queue);
 }
 
