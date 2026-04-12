@@ -21,7 +21,7 @@ final class Next implements \Rings\Interfaces\Next
         }
         
         $decorator = $this->queue->dequeue();
-            
+
         return $decorator->execute($data, new Next($this->queue));
     }
 }
